@@ -1,116 +1,120 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import 'swiper/css';
-import 'swiper/css/pagination';
-import { Pagination } from 'swiper/modules';
+import "swiper/css";
+import { Swiper as SwiperType } from "swiper/types";
+import { Navigation } from "swiper/modules"; // ✅ Import Navigation
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
+interface slide {
+  img: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  button: string;
+  topleft: string;
+}
 
-const slides = [
+const slides: slide[] = [
   {
-    img: "/wan.jpg",
+    img: "/frame.png",
     title: "WAN 2.2",
     subtitle: "WAN 2.2 Image generation",
-    description: "Generate complex images with the new WAN 2.2 model...",
+    description:
+      "Generate complex images with the new brand model and powerful WAN 2.2 model. Exceptional prompt adherence and ultra-realistic textures",
     button: "Try WAN 2.2",
+    topleft: "NEW IMAGE MODEL",
   },
   {
-    img: "/open.jpg",
+    img: "/frame.png",
+    title: "Open Source",
+    subtitle: "FLUX.1 Krea",
+    description: "We're making weights to our FLUX.1 Krea open-source. Download and run our model weights, read the technical report or generate with it in Krea Image",
+    button: "Learn More",
+    topleft: "OPEN SOURCE MODEL",
+  },
+  {
+    img: "/frame.jpg",
     title: "Open Source",
     subtitle: "FLUX.1 Krea",
     description: "We’re making weights open-source. Download and run...",
     button: "Learn More",
+    topleft: "NEW IMAGE MODEL",
   },
 ];
 
 export default function HeroCarousel() {
-  const containerRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
-
-  // Track scroll position → set active index
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    const handleScroll = () => {
-      const { scrollLeft, offsetWidth } = el;
-      const index = Math.round(scrollLeft / offsetWidth);
-      setActive(index);
-    };
-
-    el.addEventListener("scroll", handleScroll);
-    return () => el.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Scroll to slide when dot clicked
-  const scrollToSlide = (i: number) => {
-    const el = containerRef.current;
-    if (!el) return;
-    el.scrollTo({ left: i * el.offsetWidth, behavior: "smooth" });
-  };
+  const [swiper, setSwiper] = useState<SwiperType | null>(null);
 
   return (
-    <div className="w-full">
-      {/* Slides */}
-    
+    <div className="w-full relative">
+      {/* Swiper */}
+      <Swiper
+        modules={[Navigation]} // ✅ Add navigation module
+        slidesPerView={1.5}
+        spaceBetween={20}
+        onSlideChange={(s) => setActive(s.activeIndex)}
+        onSwiper={setSwiper}
+        navigation={{
+          prevEl: ".custom-prev",
+          nextEl: ".custom-next",
+        }}
+        className="mySwiper mt-8"
+      >
+        {slides.map((s, i) => (
+          <SwiperSlide key={i}>
+            <div className="rounded-2xl overflow-hidden relative">
+              <Image
+                src={s.img}
+                alt={s.title || `Slide ${i + 1}`}
+                width={800}
+                height={400}
+                className="object-cover w-full h-64 md:h-96"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent p-6 flex flex-col text-white">
+                <p className="text-xs">{s.topleft}</p>
+                <h2 className="text-2xl md:text-8xl font-bold text-center my-16">
+                  {s.title}
+                </h2>
+                <p className="text-3xl font-bold tracking-wide">{s.subtitle}</p>
+                <div className="grid grid-cols-2 items-end">
+                  <p className="text-sm mt-2">{s.description}</p>
+                  <button className="mt-3 px-4 justify-self-end py-2 text-sm bg-white text-black rounded-full w-fit">
+                    {s.button}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
 
-
-   
- 
-      {/* Dots */}
-      <div className="flex justify-center gap-2 mt-2">
+     <div className="grid grid-cols-3 justify-center  mt-4 items-center">
+        <p></p>
+         <div className="flex justify-center gap-2">
         {slides.map((_, i) => (
           <button
             key={i}
-            onClick={() => scrollToSlide(i)}
-            className={`w-2.5 h-2.5 rounded-full transition-all ${
-              i === active ? "bg-blue-500 w-6" : "bg-gray-400"
+            onClick={() => swiper?.slideTo(i)}
+            className={`h-2.5 w-2.5 rounded-full transition-all ${
+              i === active ? "bg-black" : "bg-gray-400"
             }`}
           />
         ))}
       </div>
-       <Swiper
-        slidesPerView={1.5}
-        spaceBetween={30}
-        pagination={{
-          clickable: true,
-        }}
-        modules={[Pagination]}
-        className="mySwiper"
-      >
-        <div
-        ref={containerRef}
-        className="relative overflow-x-auto snap-x snap-mandatory flex gap-4 pb-4 scroll-smooth"
-        >
-        {slides.map((s, i) => (
-            <div
-            key={i}
-            className="snap-center shrink-0 w-full md:w-1/2 rounded-2xl overflow-hidden relative"
-            >
-              <SwiperSlide>  
-            <Image
-              src={s.img}
-              alt={s.title}
-              width={800}
-              height={400}
-              className="object-cover w-full h-64 md:h-96"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent p-6 flex flex-col justify-end text-white">
-              <p className="text-sm uppercase tracking-wide">{s.subtitle}</p>
-              <h2 className="text-2xl md:text-4xl font-bold">{s.title}</h2>
-              <p className="text-sm mt-2">{s.description}</p>
-              <button className="mt-3 px-4 py-2 text-sm bg-white text-black rounded-full w-fit">
-                {s.button}
-              </button>
-            </div>
-            </SwiperSlide>
-          </div>
-        ))}
-      </div>
-      
-    </Swiper>
+
+     <div className="justify-self-end gap-2 flex">
+         <button className="custom-prev bg-gray-100 text-black p-1 rounded-full ">
+        <IoIosArrowBack />
+      </button>
+      <button className="custom-next bg-gray-100 text-black p-1 rounded-full">
+        <IoIosArrowForward />
+      </button>
+     </div>
+     </div>
     </div>
   );
 }

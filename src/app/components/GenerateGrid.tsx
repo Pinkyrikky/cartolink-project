@@ -1,11 +1,21 @@
-// components/GenerateGrid.tsx
-const features = [
-  { name: "Image", tag: "New", desc: "Generate images with custom styles", action: "Open" },
-  { name: "Video", tag: "", desc: "Generate videos with AI", action: "Open" },
-  { name: "Edit", tag: "New", desc: "Add objects, change style, expand", action: "Open" },
-  { name: "Realtime", tag: "", desc: "Realtime AI rendering", action: "Open" },
-  { name: "Enhancer", tag: "New", desc: "Upscale images up to 2K", action: "Open" },
-  { name: "Train", tag: "", desc: "Teach model to replicate style", action: "Open" },
+"use Client"
+import Image from "next/image";
+
+
+interface features {
+  icon: string;
+  name: string;
+  tag: string;
+  desc: string;
+  action: string;
+}
+const features:features[] = [
+  { icon:"/frame.png", name: "Image", tag: "New", desc: "Generate images with custom styles", action: "Open" },
+  { icon:"", name: "Video", tag: "", desc: "Generate videos with AI", action: "Open" },
+  { icon:"", name: "Edit", tag: "New", desc: "Add objects, change style, expand", action: "Open" },
+  { icon:"", name: "Realtime", tag: "", desc: "Realtime AI rendering", action: "Open" },
+  { icon:"", name: "Enhancer", tag: "New", desc: "Upscale images up to 2K", action: "Open" },
+  { icon:"", name: "Train", tag: "", desc: "Teach model to replicate style", action: "Open" },
 ];
 
 export default function GenerateGrid() {
@@ -18,6 +28,13 @@ export default function GenerateGrid() {
             key={i}
             className="p-4 bg-gray-100 dark:bg-gray-800 rounded-xl flex flex-col justify-between"
           >
+             <Image
+                            src={f.icon}
+                            alt={f.tag || `Slide ${i + 1}`}
+                            width={30}
+                            height={20}
+                            className="object-cover rounded-sm"
+                          />
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-medium">{f.name}</span>

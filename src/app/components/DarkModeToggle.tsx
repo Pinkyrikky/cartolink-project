@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { FaBell } from "react-icons/fa";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
 
 export default function DarkModeToggle() {

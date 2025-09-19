@@ -99,8 +99,8 @@ export default function HeroCarousel() {
           <button
             key={i}
             onClick={() => swiper?.slideTo(i)}
-            className={`h-2.5 w-2.5 rounded-full transition-all ${
-              i === active ? "bg-black" : "bg-gray-400"
+            className={`h-2.5 w-2.5 rounded-full transition-all duration-900 ${
+              i === active ? "bg-black dark:bg-blue-400" : "bg-gray-400"
             }`}
           />
         ))}

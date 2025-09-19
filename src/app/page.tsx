@@ -1,5 +1,6 @@
 // app/page.tsx
 
+import Footer from "./components/Footer";
 import GenerateGrid from "./components/GenerateGrid";
 import HeroCarousel from "./components/HeroCarousel";
 import Navbar from "./components/Navbar";
@@ -12,6 +13,7 @@ export default function Home() {
         <HeroCarousel />
         <GenerateGrid />
       </section>
+      <Footer />
     </main>
   );
 }

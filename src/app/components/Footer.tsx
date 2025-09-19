@@ -25,7 +25,7 @@ function Footer() {
           </button>
         </div>
       </section>
-      <section className="p-4 bg-gray-800 mt-2 text-3xl text-white flex justify-between items-center">
+      <section className="p-4 bg-gray-800 mt-2 text-3xl text-white lg:flex justify-between items-center">
        <div className="flex gap-3 items-center ">
          <div className="bg-black w-14 h-14 flex items-center justify-center rounded-lg">
             <Image
@@ -38,7 +38,7 @@ function Footer() {
         </div>
                          <p>Krea AI</p>
        </div>
-       <div className="flex gap-3 items-end items-center">
+       <div className="flex gap-3 items-end items-center mt-8 lg:mt-0">
         <p>Curated by</p>
         <Image
                            src="/krea.png"

@@ -72,17 +72,17 @@ export default function HeroCarousel() {
                 alt={s.title || `Slide ${i + 1}`}
                 width={800}
                 height={400}
-                className="object-cover w-full h-64 md:h-96"
+                className="object-cover w-full h-68 md:h-96"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent p-6 flex flex-col text-white">
                 <p className="text-xs">{s.topleft}</p>
-                <h2 className="text-2xl md:text-8xl font-bold text-center my-16">
+                <h2 className="text-2xl md:text-8xl font-bold text-center my-6 lg:my-16">
                   {s.title}
                 </h2>
-                <p className="text-3xl font-bold tracking-wide">{s.subtitle}</p>
-                <div className="grid grid-cols-2 items-end">
-                  <p className="text-sm mt-2">{s.description}</p>
-                  <button className="mt-3 px-4 justify-self-end py-2 text-sm bg-white text-black rounded-full w-fit">
+                <p className="text-sm lg:text-3xl font-bold tracking-wide">{s.subtitle}</p>
+                <div className="grid lg:grid-cols-2 items-end">
+                  <p className="text-xs lg:text-sm mt-2">{s.description}</p>
+                  <button className="mt-3 px-2 lg:px-4 justify-self-end py1 lg:py-2 text-[10px] lg:text-sm bg-white text-black rounded-full w-fit">
                     {s.button}
                   </button>
                 </div>
